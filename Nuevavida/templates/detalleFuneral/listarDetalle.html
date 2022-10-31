@@ -1,0 +1,61 @@
+{%extends "base.html"%} {%load static%} {%block contenedor%}
+
+<h2>Beneficiario</h2><br>
+{% if Beneficiario.id != 0 %}
+<form action="{% url 'Nuevavida:editarBeneficiario' Beneficiario.id %}" method="post">
+{% else %}
+<form action="{% url 'Nuevavida:agregarBeneficiario' %}" method="post">
+{% endif %}
+
+
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{Beneficiario.id}}">
+    <div class="form-group">
+        <label for="fname">Usuario:</label><br>
+        <select class="form-control" onchange="validarPlan()" name="idUsuario" id="idUsuario">
+            <option value="0">Seleccione</option>
+            {% if Usuario %}
+                {% for usuario in Usuario %}
+                
+                    {% if usuario.id == Beneficiario.cedulaUsuario_id  %}
+                        <option value="{{usuario.id}}" selected >{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
+                    {% else %}
+                        <option value="{{usuario.id}}">{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
+                    {% endif %}
+                {% endfor %}
+            {% endif %} 
+        </select><br>
+    </div>
+    <div class="form-group">
+        <label for="fname">cedula Beneficiario:</label><br>
+        <input class="form-control" type="text" name="cedulaBeneficiario" value="{% if Beneficiario %}{{Beneficiario.cedulaBeneficiario}}{% endif %}"><br>
+    </div>
+    <div class="form-group">
+        <label for="lname">nombre Beneficiario:</label><br>
+        <input class="form-control" type="text" name="nombreBeneficiario" value="{% if Beneficiario %}{{Beneficiario.nombreBeneficiario}}{% endif %}"><br>
+    </div>
+    <div class="form-group">
+        <label for="lname">apellido Beneficiario:</label><br>
+        <input class="form-control" type="text" name="apellidoBeneficiario" value="{% if Beneficiario %}{{Beneficiario.apellidoBeneficiario}}{% endif %}"><br>
+    </div>
+
+    <div class="form-group">
+        <label for="lname">fecha Nacimiento:</label><br>
+        <input class="form-control" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+    </div>
+
+    <input class="btn btn-success" type="submit" value="guardar">
+</form>
+
+<script src="{% static 'js/beneficiario.js'%}"></script>
+
+{% if messages %}
+    
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }}</li>
+        {% endfor %}
+    
+    <div class="alert alert- {% if message.tags %} {{ message.tags }} {% else %} dark {% endif %}" role="alert"> {{ message.tags }} </div>
+{% endif %}
+
+{%endblock%}

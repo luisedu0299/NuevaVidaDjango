@@ -1,0 +1,54 @@
+{%extends "base.html"%} {%load static%} {%block contenedor%}
+
+<h2>Pagos</h2><br>
+<h5>Valor de la cuota: {{Usuario.idplan.precio}}</h5>
+    <form action="{% url 'Nuevavida:buscarUsuario'%}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-10">
+                <label for="fname">Usuario:</label><br> 
+                <select class="form-control" name="usuario" id="idUsuario">
+                    {% if Usuarios %}
+                    {% for coti in Usuarios %}
+                        {% if coti.id == Usuario.id %}
+                            <option value="{{coti.id}}" selected >{{coti.nombre}} - Plan:{{coti.idplan.nombrePlan}}</option>
+                        {% else %}
+                            <option value="{{coti.id}}">{{coti.nombre}} - Plan:{{coti.idplan.nombrePlan}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %} 
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label><br>
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>   
+        </div>
+    </form>
+
+    <form action="{% url 'Nuevavida:agregarPagos' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{Pagos.id}}">
+        <input type="hidden" name="usuario" value="{{Usuario.id}}">
+        <div class="form-group" style="display:none">
+            <label for="fname">valor:</label><br>
+            <input class="form-control" type="text" name="valor" value="{% if Usuario %}{{Usuario.idplan.precio}}{% endif %}"><br>
+        </div>
+        <div class="form-group">
+            <label for="lname">cuota:</label><br>
+            <input class="form-control" type="text" name="cuota" value="{% if Usuario %}{{Pagos.cuota}}{% endif %}"><br>
+        </div>
+        <input class="btn btn-success" type="submit" value="Realizar pago">
+    </form>
+
+
+{% if messages %}
+    
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }}</li>
+        {% endfor %}
+    
+    <div class="alert alert- {% if message.tags %} {{ message.tags }} {% else %} dark {% endif %}" role="alert"> {{ message.tags }} </div>
+{% endif %}
+
+{%endblock%}

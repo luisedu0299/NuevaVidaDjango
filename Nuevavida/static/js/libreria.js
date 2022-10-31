@@ -1,0 +1,1 @@
+console.log("Primer proyecto en Django fueneraria nueva vida :)")

@@ -1,0 +1,146 @@
+{%load static%}
+
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block titulo%} Software funeraria nueva vida {%endblock%}</title>
+    <!--Bootstrap 5.2-->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilo.css' %}" rel="stylesheet">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png'%}">
+    <link rel=" icon " type="image/png " sizes="32x32 " href="{% static 'avicon_io/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png'%}">
+    <link rel=" manifest " href="{% static 'favicon_io/site.webmanifest'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %} "/>
+</head>
+
+<body>
+
+    <main id="medio">
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'Nuevavida:index'%}">Nueva vida</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            
+                        </li>
+                        {% if sesion.rol == '1' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarPlan'%}">Planes</a>
+                        </li>
+                        {% endif %}
+                        <!--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Planes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="">Individual</a></li>
+                                <li><a class="dropdown-item" href="">Familiar</a></li>
+                                <li><a class="dropdown-item" href="">Mascotas</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            
+                            </ul>
+                        </li>-->
+                        {% if sesion.rol == '1' or sesion.rol == '2'%}
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarUsuario'%}">Usuarios</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarBeneficiario'%}">Beneficiarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarPagos'%}">Pagos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Nuevavida:listarFactura'%}">Facturas</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% if sesion.rol == '1' or sesion.rol == '2'%}
+                    <label style="color:blue; margin-right: 25%;" class="nav-link">Bienvenid@ {{sesion.userName}}</label>
+                    {% endif %}
+                    <!--<form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>-->
+                    {% if sesion.rol != '1' and sesion.rol != '2'%}
+                    <button style="float:right" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
+                    {% else %}
+                    <form action="{% url 'Nuevavida:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary" >Logout</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="{% url 'Nuevavida:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label for="correo" id="exampleModalLabel">Correo</label>
+                        <input class="form-control" id="correo" name="correo"><br>
+                        <label for="contraseña" id="exampleModalLabel">Contraseña</label>
+                        <input type="password" class="form-control" id="contraseña" name="password">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" >Login</button> </div> 
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
+        <div class="container"><br>
+            {%block contenedor%} -------- {%endblock%}
+        </div>
+    </main>
+
+   <!-- <footer id="footer">
+        
+        <div class="container" id="contenido-footer">
+            <p>Te agradecemos mucho por tenernos en cuenta para despedir a tus seres amados, cualquier duda o inquietud te puedes comunicar con nosotros en nuestras lineas de atencion</p><br>
+            <div id="escrito-footer">
+                <p>linea local:</p><br>
+                <p>linea Nacional:</p>    
+            </div>
+            
+
+        </div>
+    </footer>
+    -->
+    <script src="{% static 'js/popper.min.js'%}"></script>
+    <script src="{% static 'js/libreria.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/jquery-3.6.1.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>

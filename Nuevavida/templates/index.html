@@ -1,0 +1,37 @@
+{%extends "base.html"%}
+    {%load static%} 
+ <!--<link rel="stylesheet" href="{% static 'css/estilo.css'%}">-->
+
+
+ {%block titulo%} funeraria {%endblock%}
+
+{%block contenedor%}
+
+{% if messages %} 
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}dark{% endif %}" role="alert"> {{ message }} </div>
+{% endfor %} {% endif %}
+
+<body>
+    <h1>Bienvenido a la funeraria nueva vida</h1>
+    <div class="content-all">
+    <div class="content-carrousel">
+    <figure><img src="{% static 'imagenes/ataud.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/barco.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/cinta.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/descarga.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/flores.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/images (1).jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/images.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/intento.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/paloma.jpeg'%}"></figure>
+    <figure><img src="{% static 'imagenes/otroataud.jpeg'%}"></figure>
+    </div>
+    </div>
+
+
+
+
+    
+
+{%endblock contenedor%}

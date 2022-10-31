@@ -1,0 +1,23 @@
+{%extends "base.html"%} {%load static%} {%block contenedor%}
+
+<div class="container" style="border: 1px solid black" id="factura">
+    <h1>Fecha de pago: {{Factura.fechaPago}}</h1>
+    <h2>Usuario: {{Usuario.nombre}} {{Usuario.apellido}}</h2>
+    <h2>Valor plan: {{Usuario.idplan.precio}}</h2>
+    <h2>Valor deuda: {{Factura.totalDeuda}}</h2>
+    <h2>Total pago: {{Factura.totalPago}}</h2>
+</div><br>
+<button style="float:right" onclick="descargarFactura()" class="btn btn-danger">Descargar</button>
+
+<script src="{% static 'js/factura.js'%}"></script>
+
+{% if messages %}
+    
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }}</li>
+        {% endfor %}
+    
+    <div class="alert alert- {% if message.tags %} {{ message.tags }} {% else %} dark {% endif %}" role="alert"> {{ message.tags }} </div>
+{% endif %}
+
+{%endblock%}
