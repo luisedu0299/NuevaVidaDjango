@@ -61,6 +61,7 @@ def guardarDetalle (request):
                 cantidadBebidas = request.POST["cantidadBebidas"],
                 precioBebidas = request.POST["precioBebidas"],
                 totalBebidas = request.POST["totalBebidas"],
+                lugarVelacion = request.POST["lugarVelacion"],
                 nombreCementerio = request.POST["nombreCementerio"],
                 cedulaUsuario = Usuario.objects.get(pk = request.POST["idUsuario"]),
                 
