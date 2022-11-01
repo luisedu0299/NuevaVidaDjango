@@ -1,6 +1,6 @@
 from django.urls import path
 from Nuevavida.models import Usuario
-from .vistas import usuarioviews, planviews, facturaviews, pagosviews, beneficiarioviews,loginview,datofuneralviews
+from .vistas import detallefuneralviews, usuarioviews, planviews, facturaviews, pagosviews, beneficiarioviews,loginview
 
 
 
@@ -59,8 +59,8 @@ urlpatterns = [
 
 # crud Detalle de Funeral
     
-    path('formularioDetalle/<int:id>',datofuneralviews.formularioDetalle, name="formularioDetalle"),
-    path('guardarDetalle/',datofuneralviews.guardarDetalle, name="guardarDetalle"),
+    path('formularioDetalle/<int:id>',detallefuneralviews.formularioDetalle, name="formularioDetalle"),
+    path('guardarDetalle/',detallefuneralviews.guardarDetalle, name="guardarDetalle"),
 
 
 ]

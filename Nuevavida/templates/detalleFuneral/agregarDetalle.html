@@ -2,22 +2,22 @@
 
 <h2>Detalle de funeral</h2><br>
 {% if Beneficiario.id != 0 %}
-<form action="{% url 'Nuevavida:editarBeneficiario' Beneficiario.id %}" method="post">
+<form action="{% url 'Nuevavida:guardarDetalle' %}" method="post">
 {% else %}
-<form action="{% url 'Nuevavida:agregarBeneficiario' %}" method="post">
+<form action="{% url 'Nuevavida:agregarDetalle' %}" method="post">
 {% endif %}
 
 
     {% csrf_token %}
-    <input type="hidden" name="id" value="{{Beneficiario.id}}">
+    <input type="hidden" name="id">
     <div class="form-group">
         <label for="fname">Usuario:</label><br>
-        <select class="form-control" onchange="validarPlan()" name="idUsuario" id="idUsuario">
+        <select class="form-control" name="idUsuario" id="idUsuario">
             <option value="0">Seleccione</option>
             {% if Usuario %}
                 {% for usuario in Usuario %}
                 
-                    {% if usuario.id == Beneficiario.cedulaUsuario_id  %}
+                    {% if usuario.id != 0  %}
                         <option value="{{usuario.id}}" selected >{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
                     {% else %}
                         <option value="{{usuario.id}}">{{usuario.nombre}} - Plan:{{usuario.idplan.nombrePlan}}</option>
@@ -27,27 +27,38 @@
         </select><br>
     </div>
     <div class="form-group">
-        <label for="fname">cedula Beneficiario:</label><br>
-        <input class="form-control" type="text" name="cedulaBeneficiario" value="{% if Beneficiario %}{{Beneficiario.cedulaBeneficiario}}{% endif %}"><br>
+        <label for="fname">Fecha del Entierro:</label><br>
+        <input class="form-control" type="date" name="fechaEntierro" ><br>
     </div>
     <div class="form-group">
-        <label for="lname">nombre Beneficiario:</label><br>
-        <input class="form-control" type="text" name="nombreBeneficiario" value="{% if Beneficiario %}{{Beneficiario.nombreBeneficiario}}{% endif %}"><br>
+        <label for="lname">Detalles:</label><br>
+        <textarea class="form-control" type="text" name="detalles" ></textarea><br>
     </div>
     <div class="form-group">
-        <label for="lname">apellido Beneficiario:</label><br>
-        <input class="form-control" type="text" name="apellidoBeneficiario" value="{% if Beneficiario %}{{Beneficiario.apellidoBeneficiario}}{% endif %}"><br>
+        <label for="lname">Cantidad de Bebidas</label><br>
+        <input class="form-control" type="number" name="cantidadBebidas" ><br>
     </div>
 
     <div class="form-group">
-        <label for="lname">fecha Nacimiento:</label><br>
-        <input class="form-control" type="date" name="fechaNacimiento" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+        <label for="lname">Precio de las Bebidas:</label><br>
+        <input class="form-control" type="number" name="precioBebidas" ><br>
+    </div>
+    <div class="form-group">
+        <label for="lname">Total de las Bebidas:</label><br>
+        <input class="form-control" type="number" name="totalBebidas" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+    </div>
+    <div class="form-group">
+        <label for="lname">Lugar de la velacion:</label><br>
+        <input class="form-control" type="text" name="lugarVelacion" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
+    </div>
+    <div class="form-group">
+        <label for="lname">Nombre del cementerio:</label><br>
+        <input class="form-control" type="text" name="nombreCementerio" value="{% if Beneficiario %}{{Beneficiario.fechaNacimiento}}{% endif %}"><br>
     </div>
 
     <input class="btn btn-success" type="submit" value="guardar">
 </form>
 
-<script src="{% static 'js/beneficiario.js'%}"></script>
 
 {% if messages %}
     

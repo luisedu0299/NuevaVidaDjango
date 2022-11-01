@@ -71,8 +71,7 @@ class Pagos (models.Model):
 
 class DetalleFuneral (models.Model):
     fechaEntierro= models.DateField()
-    horaInicio= models.DateTimeField()
-    horaFinal= models.DateTimeField()
+    detalles= models.CharField(max_length=300)
     cantidadBebidas= models.IntegerField()
     precioBebidas= models.IntegerField()
     totalBebidas= models.IntegerField()
@@ -81,7 +80,7 @@ class DetalleFuneral (models.Model):
     cedulaUsuario= models.ForeignKey(Usuario, on_delete= models.DO_NOTHING)
     
     def __str__(self):
-        return f"{self.codigoDetalle} {self.cedulaUsuario}"
+        return f"{self.detalles} {self.cedulaUsuario}"
 
 
 def calcularEdad(self): 

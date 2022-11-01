@@ -35,10 +35,22 @@
         <td>{{t.apellido}}</td>
         <td>{{t.telefono}}</td>
         <td>{{t.correo}}</td>
-        <td><button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioUsuario' t.id %}">Editar</a></button>&nbsp;
+        <td>
+            <button class="btn btn-primary" ><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioUsuario' t.id %}">Editar</a></button>&nbsp;
             {% if sesion.rol == '1' %}
             <button class="btn btn-danger"><a style="text-decoration: none; color:white"href="/Nuevavida/eliminarUsuario/{{t.id}}">Eliminar</a></button>
-            <button class="btn btn-success"><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioDetalle' t.id %}">Agregar Dato</a></button>
+            <button class="btn btn-success"><a style="text-decoration: none; color:white"href="{% url 'Nuevavida:formularioDetalle' t.id %}">Agregar Datos</a></button>
+            <div class="dropdown">
+                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                  Ver Detalle
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Link 1</a></li>
+                  <li><a class="dropdown-item" href="#">Link 2</a></li>
+                  <li><a class="dropdown-item" href="#">Link 3</a></li>
+                </ul>
+              </div>
+
         </td>
             {% endif %}
     </tr>

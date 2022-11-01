@@ -39,7 +39,7 @@ class PagosAdmin (admin.ModelAdmin):
 
 @admin.register(DetalleFuneral)
 class DetalleFuneralAdmin (admin.ModelAdmin):
-    list_display= ('fechaEntierro','horaInicio','horaFinal','cantidadBebidas','precioBebidas','totalBebidas','lugarVelacion','nombreCementerio')
+    list_display= ('fechaEntierro','detalles' ,'cantidadBebidas','precioBebidas','totalBebidas','lugarVelacion','nombreCementerio')
     search_fields= ['fechaEntierro']
 
 

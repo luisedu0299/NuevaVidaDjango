@@ -30,12 +30,12 @@ def formularioDetalle(request, id):
     permisos = {}
     print(id)
     if id != 0:
-        q = DetalleFuneral.objects.get(pk = id) 
+        
         p = Usuario.objects.all()
         
         if "idUser" in request.session:
             permisos = {"rol" : request.session['rol'], "userId" : request.session['idUser'], "userName" : request.session['userName']}
-            context = {"DetalleFuneral":q, "Usuario": p,"sesion" : permisos}
+            context = {"Usuario": p,"sesion" : permisos}
             return render(request, 'detalleFuneral/agregarDetalle.html',context)
         else:
             messages.warning(request,"para ingresar debe iniciar sesion...")
@@ -57,8 +57,7 @@ def guardarDetalle (request):
         if request.method=="POST":
             q = DetalleFuneral(
                 fechaEntierro = datetime.datetime.strptime(request.POST["fechaEntierro"],"%Y-%m-%d").date(),
-                horaInicio = datetime.datetime.strptime(request.POST["horaInicio"],"%H:%M:%S").date(),
-                horaFinal = datetime.datetime.strptime(request.POST["horaFinal"],"%H:%M:%S").date(),
+                detalles = request.POST["detalles"],
                 cantidadBebidas = request.POST["cantidadBebidas"],
                 precioBebidas = request.POST["precioBebidas"],
                 totalBebidas = request.POST["totalBebidas"],
@@ -80,4 +79,4 @@ def guardarDetalle (request):
     except Exception as e:
         messages.error(request,f"error: {e}")
            
-    return redirect('Nuevavida:listarDetalle')
+    return redirect('Nuevavida:listarUsuario')
